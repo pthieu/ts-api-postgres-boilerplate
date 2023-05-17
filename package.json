@@ -1,0 +1,41 @@
+{
+  "name": "ts-api-postgres-boilerplate",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Phong Thieu",
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite-node src/index.ts",
+    "format": "npm run lint --fix & prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint src --ext .ts"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/compression": "^1.7.2",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.7",
+    "vite-node": "^0.31.0",
+    "vite-tsconfig-paths": "^4.2.0"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-promise-router": "^4.1.1"
+  }
+}
