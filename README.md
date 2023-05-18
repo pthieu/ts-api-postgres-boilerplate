@@ -1,5 +1,4 @@
-# Boilerplate for Backend API's
-
+# Phong's Boilerplate for Backend Apps
 
 # TODO
 - [ ] Add build script
@@ -7,13 +6,15 @@
 - [ ] Add a watch script for dev
 
 # Stack
-- TS
-- Vite-node for local dev
-- Express.js & express-promise-router
+- TypeScript
+- PNPM
+- Docker
+- Vite + vite-node for local dev (with HMR)
+- ESBuild for production build
 - ESLint + Prettier
 - Absolute imports
-- Opinionated folder structure
-
+- Express.js
+- Objection.js + Knex for Postgres management
 
 
 # File Structure
@@ -21,32 +22,23 @@
 .
 ├── README.md
 ├── package.json
-├── .gitignore, .eslintrc.js, tsconfig, vite.config.ts
+├── .gitignore, .eslintrc.js, tsconfig.json, vite.config.ts
+├── pnpm-lock.yaml
 ├── src
-│   ├── app.ts
-│   ├── config
-│   │   ├── config.ts
-│   │   └── index.ts
-
-│   ├── controllers
-│   │   └── index.ts
-│   ├── index.ts
-│   ├── middlewares
-│   │   ├── errorHandlers.ts
-│   │   ├── index.ts
-│   │   └── logger.ts
-│   ├── routes
-│   │   ├── index.ts
-│   │   └── v1
-│   │       ├── index.ts
-│   │       └── user.ts
-│   ├── services
-│   │   └── index.ts
-│   └── utils
-│       ├── index.ts
-│       └── logger.ts
-├── tsconfig.json
-└── yarn.lock
+│   ├── index.ts - entry point
+│   ├── app.ts - express app
+│   ├── config.ts
+│   ├── api
+│   │   └── route
+│   │       ├── index.ts 
+│   │       ├── model.ts - Objection.js model 
+│   │       └── controller.ts
+│   ├── types
+│   ├── lib
+│   │   └── name.ts
+│   └── services
+│       └── name.ts
+└── Dockerfile
 ```
 
 # Setup

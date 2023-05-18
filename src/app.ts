@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -19,8 +18,8 @@ export default function app(routes: Router) {
   // XXX(Phong): if you're doing any type of proxying or routing, you should
   // comment this out because it will destroy the buffer stream for the body
   // so the target you're forwarding to will not get a proper payload
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
 
   app.get('/', (_, res) => res.sendStatus(404));
