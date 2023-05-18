@@ -1,13 +1,18 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
-- [ ] Add build script
-- [ ] Add Dockerfile
-- [ ] Add a watch script for dev
+- [x] ~Add build script~
+- [x] ~Add Dockerfile~
+- [ ] ~Add a watch script for dev~ not needed, vite-node has HMR
+- [ ] Add CircleCI config
+- [ ] Try to reduce Docker image size
+  - Read:
+    - https://odino.org/minimal-docker-run-your-nodejs-app-in-25mb-of-an-image/
+    - https://learnk8s.io/blog/smaller-docker-images
 
 # Stack
 - TypeScript
-- PNPM
+- PNPM (but you can use whatever)
 - Docker
 - Vite + vite-node for local dev (with HMR)
 - ESBuild for production build
@@ -43,3 +48,30 @@
 
 # Setup
 
+## Node
+```
+pnpm i
+pnpm dev
+```
+
+## Docker
+```
+docker build -t ts-api .
+docker run -p 9000:80 --name ts-api ts-api
+```
+
+## VSCode
+Debug with this `launch.json`
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "pnpm dev",
+      "name": "Debug",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
+}
+```
