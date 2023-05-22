@@ -12,14 +12,15 @@
 
 # Stack
 - TypeScript
-- PNPM (but you can use whatever)
-- Docker
-- Vite + vite-node for local dev (with HMR)
-- ESBuild for production build
-- ESLint + Prettier
-- Absolute imports
 - Express.js
 - Objection.js + Knex for Postgres management
+- ESLint + Prettier
+- Absolute imports
+- Vite + vite-node for local dev (with HMR)
+- ESBuild for production build
+- PNPM (but you can use whatever)
+- Docker
+- CircleCI
 
 
 # File Structure
