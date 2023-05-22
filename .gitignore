@@ -20,4 +20,6 @@ yarn-error.log*
 node_modules
 
 # Users Environment Variables
-.env.*
+.env*
+# except the example file
+!.env.example
