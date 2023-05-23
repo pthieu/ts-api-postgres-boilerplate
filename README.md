@@ -17,7 +17,7 @@
 - ESLint + Prettier
 - Absolute imports
 - Vite + vite-node for local dev (with HMR)
-- ESBuild for production build
+- ESBuild for production build (and DB scripts)
 - PNPM (but you can use whatever)
 - Docker
 - CircleCI
