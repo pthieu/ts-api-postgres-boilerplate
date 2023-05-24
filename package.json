@@ -6,13 +6,15 @@
   "license": "ISC",
   "scripts": {
     "dev": "vite-node src/index.ts",
-    "build": "tsc && esbuild src/index.ts --bundle --platform=node --outfile=dist/app.js --minify",
+    "build": "tsc && node esbuild.mjs",
     "serve": "node dist/app.js",
     "format": "npm run lint --fix & prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint src --ext .ts --fix",
     "lint": "eslint src --ext .ts",
-    "migrate:create": "tsx src/db/create-migration.ts",
-    "migrate:latest": "tsx src/db/migrate-to-latest.ts"
+    "migrate:create": "tsx scripts/create-migration.ts",
+    "migrate:latest": "tsx scripts/migrate-to-latest.ts",
+    "migrate:up": "tsx scripts/migrate-up.ts",
+    "migrate:down": "tsx scripts/migrate-down.ts"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",

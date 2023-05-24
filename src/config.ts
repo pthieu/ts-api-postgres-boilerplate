@@ -20,11 +20,7 @@ function getEnvVariable(name: string, defaultVal?: string): string {
     throw new Error(`environment variable ${name} not found`);
   }
 
-  if (val) {
-    return val;
-  }
-
-  return '';
+  return val;
 }
 
 export default config;

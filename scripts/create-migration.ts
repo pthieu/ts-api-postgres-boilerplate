@@ -4,7 +4,7 @@
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const migrationFolder = resolve(__dirname, './migrations');
+const migrationFolder = resolve(__dirname, '../src/db/migrations');
 
 async function main() {
   const name = process.argv[2] || '';
@@ -37,7 +37,8 @@ export async function up(db: Kysely<any>): Promise<void> {
 // eslint-disable-next-line
 export async function down(db: Kysely<any>): Promise<void> {
   await db.schema
-}`;
+}
+`;
 }
 
 main();
