@@ -1,13 +1,17 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
+- [ ] Add db config and singleton
+- [ ] Add user model
+- [ ] Decide on kysely-codegen
+- [ ] Look into auth middleware, how to show as an example
+- [ ] Explain local dev vs. production migrations and decision
+- [ ] Explain /lib folder and why db has a dedicated lib
+- [ ] Figure out way to build and push image as a demo (say to ECR)
 - [ ] Try to reduce Docker image size
   - Read:
     - https://odino.org/minimal-docker-run-your-nodejs-app-in-25mb-of-an-image/
     - https://learnk8s.io/blog/smaller-docker-images
-- [ ] Add user model
-- [ ] Explain local dev vs. production migrations and decision
-- [ ] Explain /lib folder and why db has a dedicated lib
 - [x] Add build script
 - [x] Add Dockerfile
 - [ ] ~Add a watch script for dev~ not needed, vite-node has HMR
@@ -15,7 +19,7 @@
 - [x] Add db query builder or ORM + 1 migration
 - [x] Figure out how to handle migrations:up and :down
 - [x] Figure out how to run migration in production
-- [x] Add database connection config
+- [x] Add database connection in migrations
 
 # Stack
 - TypeScript

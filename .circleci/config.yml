@@ -22,10 +22,10 @@ workflows:
       # - build:
       #     requires:
       #       - lint_and_compile
-      - wait_for_approval:
-          type: approval
-          requires:
-            - lint_and_compile
+      # - wait_for_approval:
+      #     type: approval
+      #     requires:
+      #       - lint_and_compile
 
 jobs:
   build_workspace:
