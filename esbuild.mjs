@@ -7,10 +7,13 @@ const OUT_DIR = 'dist';
 
 await build({
   entryPoints: ['src/index.ts'],
+  platform: 'node',
   bundle: true,
   minify: true,
-  platform: 'node',
   outfile: `${OUT_DIR}/app.js`,
+  // banner: {
+  //   js: "import { createRequire } from 'module';const require = createRequire(import.meta.url);",
+  // },
 });
 
 const entryPoints = fs

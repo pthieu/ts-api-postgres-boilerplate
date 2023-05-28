@@ -1,7 +1,7 @@
 // import express, { Application, Request, Response } from 'express';
 
 import config from './config';
-import ApiRouter from '~/api/root';
+import ApiRouter from '~/api';
 import app from '~/app';
 import { migrateToLatest } from '~/db';
 

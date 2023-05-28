@@ -1,9 +1,10 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
+- [ ] Get vite-node HMR to work
+- [ ] Add testing framework and unit test
 - [ ] Add db config and singleton
 - [ ] Add user model
-- [ ] Decide on kysely-codegen
 - [ ] Look into auth middleware, how to show as an example
 - [ ] Explain local dev vs. production migrations and decision
 - [ ] Explain /lib folder and why db has a dedicated lib
@@ -12,9 +13,9 @@
   - Read:
     - https://odino.org/minimal-docker-run-your-nodejs-app-in-25mb-of-an-image/
     - https://learnk8s.io/blog/smaller-docker-images
+- [ ] Add a logger lib to add timestamps
 - [x] Add build script
 - [x] Add Dockerfile
-- [ ] ~Add a watch script for dev~ not needed, vite-node has HMR
 - [x] Add CircleCI config
 - [x] Add db query builder or ORM + 1 migration
 - [x] Figure out how to handle migrations:up and :down
@@ -31,7 +32,7 @@
 - [ESBuild](https://esbuild.github.io/) (handles DB migration scripts too)
 - Docker
 - CircleCI
-- [PNPM](https://pnpm.io/) (but you can use whatever)
+- [PNPM](https://pnpm.io/) (mostly for Docker, you can use whatever)
 
 
 # File Structure
@@ -73,7 +74,7 @@ pn migrate:latest
 
 ## Database
 
-TBD:
+to be written:
 - migratetion scripts vs lib
 - choice of kysely
 - esbuild transpile and copy

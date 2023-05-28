@@ -1,25 +1,31 @@
 import { promises as fs } from 'fs';
 import {
+  CamelCasePlugin,
   FileMigrationProvider,
   Kysely,
   MigrationResultSet,
   Migrator,
   PostgresDialect,
 } from 'kysely';
-import { DB } from 'kysely-codegen';
 import * as path from 'path';
 import { Pool } from 'pg';
 
 import config from '~/config';
+import { DB } from '~/db/schema';
 
 // XXX(Phong): don't keep calling this without destroying the connection, there
 // should only be one instance of this in the app. The migrations are ok because
 // they're scripts and also run `db.destroy()`
-async function createDb() {
-  const db = new Kysely<DB>({
+let db: Kysely<DB> | null = null;
+export async function createDb() {
+  if (db) {
+    return db;
+  }
+  db = new Kysely<DB>({
     dialect: new PostgresDialect({
       pool: new Pool({ connectionString: config.DATABASE_URL }),
     }),
+    plugins: [new CamelCasePlugin()],
   });
   return db;
 }
