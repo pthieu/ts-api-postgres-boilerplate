@@ -1,16 +1,10 @@
-// import express, { Application, Request, Response } from 'express';
-
 import config from './config';
 import ApiRouter from '~/api';
 import app from '~/app';
-import { migrateToLatest } from '~/db';
+import { migrateLatest } from '~/db';
 
 async function main() {
-  if (process.env.NODE_ENV === 'production') {
-    // XXX(Phong): see scripts/migrate-to-latest.ts for comments
-    await migrateToLatest();
-  }
-
+  await migrateLatest();
   const PORT = config.PORT;
 
   const server = app(ApiRouter);

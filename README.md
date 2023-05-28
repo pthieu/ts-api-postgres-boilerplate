@@ -14,6 +14,10 @@
     - https://odino.org/minimal-docker-run-your-nodejs-app-in-25mb-of-an-image/
     - https://learnk8s.io/blog/smaller-docker-images
 - [ ] Add a logger lib to add timestamps
+- [ ] Add pagination example
+- [ ] Add login with google example and middleware for role auth
+- [x] Move to Drizzle ORM
+  - [ ] copy all migrations and metadata over on build
 - [x] Add build script
 - [x] Add Dockerfile
 - [x] Add CircleCI config
@@ -27,7 +31,7 @@
 - ESLint + Prettier
 - Absolute imports
 - Express.js
-- [Kysely](https://github.com/kysely-org/kysely) (query builder)
+- [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
 - [Vite](https://github.com/vitejs/vite) + [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) for local dev (with HMR) -- remove this once `tsx` has HMR
 - [ESBuild](https://esbuild.github.io/) (handles DB migration scripts too)
 - Docker
@@ -68,17 +72,21 @@
 ## Node
 ```
 pnpm i
+pnpm migrate:generate
 pnpm dev
-pn migrate:latest
 ```
 
 ## Database
 
+We're using [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm) because they're a lightweight wrapper on top of SQL. They abstract away a lot of boilerplate connecting Typescript to SQL without getting in your way and they don't compromise on technical decisions by trying to support other languages (unlike a certain other popular ORM).
+
+The thing about Schema-first Typescript ORMs is that most of them require the migrations to happen at the application level to reduce risks associate d with schema drift (time between the DB schema changing and application code chainging) and because the library doesn't know your compilation strategy. You can probably pull it out into its own `.ts` script and import the `config`, but the build steps will have to change a bit.
+
+Specific to Drizzle though, we need to commit the `meta` metadata folder. They haven't documented why but they've confirmed to do this on Discord. In a multi-dev project, you can run the `pnpm migrate:check` command to see if your migrations are in sync.
+
 to be written:
-- migratetion scripts vs lib
-- choice of kysely
 - esbuild transpile and copy
-- kysely db lock, guaranteed to run
+- Drizzle db lock, guaranteed to run
 
 ## Environment Variables
 TBD:

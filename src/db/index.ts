@@ -1,87 +1,25 @@
-import { promises as fs } from 'fs';
-import {
-  CamelCasePlugin,
-  FileMigrationProvider,
-  Kysely,
-  MigrationResultSet,
-  Migrator,
-  PostgresDialect,
-} from 'kysely';
-import * as path from 'path';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
+import { resolve } from 'node:path';
 import { Pool } from 'pg';
 
 import config from '~/config';
-import { DB } from '~/db/schema';
 
-// XXX(Phong): don't keep calling this without destroying the connection, there
-// should only be one instance of this in the app. The migrations are ok because
-// they're scripts and also run `db.destroy()`
-let db: Kysely<DB> | null = null;
+let db: ReturnType<typeof drizzle>;
 export async function createDb() {
   if (db) {
     return db;
   }
-  db = new Kysely<DB>({
-    dialect: new PostgresDialect({
-      pool: new Pool({ connectionString: config.DATABASE_URL }),
-    }),
-    plugins: [new CamelCasePlugin()],
+  const pool = new Pool({
+    connectionString: config.DATABASE_URL,
   });
+
+  db = drizzle(pool);
   return db;
 }
 
-async function createMigrator(db: Kysely<DB>) {
-  const migrator = new Migrator({
-    db,
-    provider: new FileMigrationProvider({
-      fs,
-      path,
-      migrationFolder: path.join(__dirname, 'migrations'),
-    }),
-  });
-
-  return migrator;
-}
-
-async function processMigrationResults({ error, results }: MigrationResultSet) {
-  results?.forEach((it) => {
-    if (it.status === 'Success') {
-      console.log(`migration "${it.migrationName}" was executed successfully`);
-    } else if (it.status === 'Error') {
-      console.error(`failed to execute migration "${it.migrationName}"`);
-    }
-  });
-
-  if (error) {
-    console.error('failed to migrate');
-    console.error(error);
-    process.exit(1);
-  }
-}
-
-export async function migrateToLatest() {
+export async function migrateLatest() {
   const db = await createDb();
-  const migrator = await createMigrator(db);
-  const res = await migrator.migrateToLatest();
-  await processMigrationResults(res);
-
-  await db.destroy();
-}
-
-export async function migrateDown() {
-  const db = await createDb();
-  const migrator = await createMigrator(db);
-  const res = await migrator.migrateDown();
-  await processMigrationResults(res);
-
-  await db.destroy();
-}
-
-export async function migrateUp() {
-  const db = await createDb();
-  const migrator = await createMigrator(db);
-  const res = await migrator.migrateUp();
-  await processMigrationResults(res);
-
-  await db.destroy();
+  await migrate(db, { migrationsFolder: resolve(__dirname, 'migrations') });
+  console.log('Migrations completed successfully');
 }
