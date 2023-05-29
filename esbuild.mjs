@@ -12,7 +12,7 @@ await build({
   target: 'es2022',
   format: 'esm',
   bundle: true,
-  minify: true,
+  minify: false,
   outfile: `${OUT_DIR}/app.js`,
   plugins: [
     copy({
@@ -30,7 +30,6 @@ await build({
   // await migrations to run before we can export the server.
   banner: {
     js: `
-        import path from 'path';
         import { fileURLToPath } from 'url';
         import { createRequire as topLevelCreateRequire } from 'module';
         const require = topLevelCreateRequire(import.meta.url);
