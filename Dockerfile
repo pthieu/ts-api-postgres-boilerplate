@@ -21,7 +21,9 @@ COPY . .
 RUN pnpm build
 
 # Production image, copy all the files and run compiled app
-FROM base AS runner
+FROM alpine AS runner
+RUN apk add --update nodejs
+
 WORKDIR /app
 
 # package.json needed for `type: "module"` to run awaits at top-level and imports
