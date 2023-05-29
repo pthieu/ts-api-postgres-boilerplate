@@ -19,6 +19,7 @@ export async function createDb() {
 }
 
 export async function migrateLatest() {
+  console.log('Running migrations...');
   const db = await createDb();
   await migrate(db, { migrationsFolder: resolve(__dirname, 'migrations') });
   console.log('Migrations completed successfully');

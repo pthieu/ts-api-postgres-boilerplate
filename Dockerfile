@@ -24,6 +24,7 @@ RUN pnpm build
 FROM base AS runner
 WORKDIR /app
 
+COPY --from=builder /app/dist/migrations ./migrations
 COPY --from=builder /app/dist/app.js ./app.js
 
 ENV NODE_ENV production

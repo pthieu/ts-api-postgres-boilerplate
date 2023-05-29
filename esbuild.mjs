@@ -1,5 +1,6 @@
 // src/index.ts --bundle --platform=node --outfile=dist/app.js --minify
 import { build } from 'esbuild';
+import { copy } from 'esbuild-plugin-copy';
 import fs from 'node:fs';
 import path from 'path';
 
@@ -11,9 +12,17 @@ await build({
   bundle: true,
   minify: true,
   outfile: `${OUT_DIR}/app.js`,
-  // banner: {
-  //   js: "import { createRequire } from 'module';const require = createRequire(import.meta.url);",
-  // },
+  plugins: [
+    copy({
+      // this is equal to process.cwd(), which means we use cwd path as base path to resolve `to` path
+      // if not specified, this plugin uses ESBuild.build outdir/outfile options as base path.
+      resolveFrom: 'cwd',
+      assets: {
+        from: ['./src/db/migrations/**/*'],
+        to: ['./dist/migrations'],
+      },
+    }),
+  ],
 });
 
 const entryPoints = fs
