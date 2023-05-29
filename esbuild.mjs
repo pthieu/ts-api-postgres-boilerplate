@@ -9,6 +9,8 @@ const OUT_DIR = 'dist';
 await build({
   entryPoints: ['src/index.ts'],
   platform: 'node',
+  target: 'es2022',
+  format: 'esm',
   bundle: true,
   minify: true,
   outfile: `${OUT_DIR}/app.js`,
@@ -23,6 +25,19 @@ await build({
       },
     }),
   ],
+  // XXX(Phong): this is a hack to make esbuild work to allow top-level-awaits.
+  // Because we want Vite HMR, we need to, export the server, but we need to
+  // await migrations to run before we can export the server.
+  banner: {
+    js: `
+        import path from 'path';
+        import { fileURLToPath } from 'url';
+        import { createRequire as topLevelCreateRequire } from 'module';
+        const require = topLevelCreateRequire(import.meta.url);
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = path.dirname(__filename);
+        `,
+  },
 });
 
 const entryPoints = fs

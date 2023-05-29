@@ -1,7 +1,6 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
-- [ ] Get vite-node HMR to work
 - [ ] Add testing framework and unit test
 - [ ] Add db config and singleton
 - [ ] Add user model
@@ -17,6 +16,10 @@
 - [ ] Add pagination example
 - [ ] Add login with google example and middleware for role auth
 - [ ] Look into what to put into `.dockerignore`
+- [ ] Figure out error logs in production, with build and minification, hard to see which line it broke on
+- [ ] Middleware to print incoming requests?
+- [x] Get vite-node HMR to work
+  - [ ] Improve speed of HMR for nested files (i.e. controller.ts takes 5s without getting a request, cache issue? polling interval?)
 - [x] Move to Drizzle ORM
   - [ ] copy all migrations and metadata over on build
 - [x] Add build script

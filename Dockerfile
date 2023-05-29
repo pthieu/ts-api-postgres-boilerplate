@@ -24,8 +24,10 @@ RUN pnpm build
 FROM base AS runner
 WORKDIR /app
 
+# package.json needed for `type: "module"` to run awaits at top-level and imports
+COPY package.json ./
+COPY --from=builder /app/dist/app.js ./
 COPY --from=builder /app/dist/migrations ./migrations
-COPY --from=builder /app/dist/app.js ./app.js
 
 ENV NODE_ENV production
 ENV PORT 80

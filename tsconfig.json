@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "ES2022",
     "target": "ES2022",
     "moduleResolution": "Node",
     "useDefineForClassFields": true,
@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "types": [
-      "node"
+      "node",
+      "vite/client"
     ],
     "baseUrl": ".",
     "paths": {

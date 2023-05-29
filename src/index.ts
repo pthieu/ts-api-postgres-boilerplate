@@ -3,14 +3,34 @@ import ApiRouter from '~/api';
 import app from '~/app';
 import { migrateLatest } from '~/db';
 
-async function main() {
-  await migrateLatest();
-  const PORT = config.PORT;
+const PORT = config.PORT;
 
-  const server = app(ApiRouter);
-  server.listen(PORT, () => {
-    console.log(`Server listening port ${PORT}`);
+await migrateLatest();
+export const server = app(ApiRouter);
+
+const _server = server.listen(PORT, () => {
+  console.log(`Server listening port ${PORT}`);
+});
+
+// XXX(Phong): below is to make Vite vite-note HMR work
+if (import.meta.hot) {
+  function killServer() {
+    _server.close((err) => {
+      if (err) {
+        console.error('Error closing server: ', err);
+      }
+    });
+  }
+
+  import.meta.hot.on('vite:beforeFullReload', () => {
+    console.log('HMR: full reload');
+    killServer();
+  });
+
+  import.meta.hot.dispose(() => {
+    console.log('HMR: dispose');
+    killServer();
   });
 }
 
-main();
+export default _server;
