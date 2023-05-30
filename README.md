@@ -10,6 +10,7 @@
 - [ ] Middleware to print incoming requests?
 - [ ] Look into auth middleware, how to show as an example
 - [ ] Add testing framework and unit test
+- [ ] Set up package version bump bot
 - [x] Get vite-node HMR to work
   - [ ] Improve speed of HMR for nested files (i.e. controller.ts takes 5s without getting a request, cache issue? polling interval?)
 - [x] Move to Drizzle ORM
