@@ -1,14 +1,25 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.1.0
+  aws-ecr: circleci/aws-ecr@8.2.1
 
 variables:
   - &build-image cimg/node:20.2.0
   - &workspace /home/circleci/project
 
+parameters:
+  version-tag:
+    type: string
+    default: "${CIRCLE_BUILD_NUM}-${CIRCLE_SHA1:0:8}"
+    description: |
+      The version tag to apply to the image.
+  architecture:
+    type: string
+    default: "linux/aarch64"
+    description: |
+      The architecture to build the image for.
+
 workflows:
-  version: 2
   main:
     jobs:
       - build_workspace:
@@ -19,13 +30,16 @@ workflows:
       - lint_and_compile:
           requires:
             - build_workspace
-      # - build:
-      #     requires:
-      #       - lint_and_compile
       # - wait_for_approval:
       #     type: approval
       #     requires:
       #       - lint_and_compile
+      # - build_and_push:
+      #     context:
+      #       - global
+      #     repo: lab46-redirector
+      #     requires:
+      #       - wait_for_approval
 
 jobs:
   build_workspace:
@@ -68,9 +82,26 @@ jobs:
           root: *workspace
           paths:
             - .
-  # build:
-  #   docker:
-  #     - image: &build-image
-  #   steps:
-  #     - checkout
-  #     - run: node --version
+  build_and_push:
+    resource_class: arm.medium
+    machine:
+      image: ubuntu-2004:current
+    executor: aws-ecr/default
+    parameters:
+      repo:
+        type: string
+        default: ''
+        description: |
+          The name of the ECR repo to push an image to.
+      region:
+        type: string
+        default: 'us-west-2'
+        description: |
+          The AWS region to push the image to.
+    steps:
+      - aws-ecr/build-and-push-image:
+          platform: << pipeline.parameters.architecture >>
+          registry-id: AWS_ACCOUNT_ID
+          region: us-west-2
+          repo: << parameters.repo >>
+          tag: << pipeline.parameters.version-tag >>,latest

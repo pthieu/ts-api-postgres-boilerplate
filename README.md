@@ -10,7 +10,6 @@
 - [ ] Middleware to print incoming requests?
 - [ ] Look into auth middleware, how to show as an example
 - [ ] Add testing framework and unit test
-- [ ] Set up package version bump bot
 - [x] Get vite-node HMR to work
   - [ ] Improve speed of HMR for nested files (i.e. controller.ts takes 5s without getting a request, cache issue? polling interval?)
 - [x] Move to Drizzle ORM
@@ -30,9 +29,10 @@
 - Absolute imports
 - Express.js
 - [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
+- Cloud secrets config override (AWS SSM Parameter Store)
 - [Vite](https://github.com/vitejs/vite) + [vite-node](https://github.com/vitest-dev/vitest/tree/main/packages/vite-node#readme) for local dev (with HMR)
 - [ESBuild](https://esbuild.github.io/) (handles DB migration scripts too)
-- Docker (~62MB image size)
+- Docker (~24MB image size on AWS ECR)
 - CircleCI
 - [PNPM](https://pnpm.io/) (mostly for Docker, you can use whatever)
 
@@ -128,6 +128,18 @@ docker-compose up -d
 
 If the docker container spins up, you're good and you can use whatever deployment mechanism you want.
 
+
+## CircleCI
+
+The repo uses CircleCI because it has a free tier and it's widely accepted. You can swap this out with whatever you want, like GitHub Actions.
+
+### Architecture
+
+Depending on where you're deploying, you'll need to update the `architecture` variable. The current config builds for linux/arm64.
+
+## Environment Variables
+TBD:
+  - Cloud secrets, pull from AWS SSM Parameter Store
 
 # Resources
 - [Reducing Docker image size #1](https://odino.org/minimal-docker-run-your-nodejs-app-in-25mb-of-an-image/)
