@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "cfb22fc2-e3e5-44eb-8d77-cb0583a1a1db",
+  "id": "14c0cb44-1aa1-4067-b58a-28cd1addd1dc",
   "prevId": "5fc81a2b-9887-4365-bb4b-ae4d0e98f99a",
   "tables": {
     "users": {
@@ -23,14 +23,14 @@
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
