@@ -1,15 +1,16 @@
 # Phong's Boilerplate for Backend Apps
 
 # TODO
-- [ ] Figure out way to build and push image as a demo (say to ECR)
 - [ ] Add a logger lib to add timestamps
 - [ ] Add pagination example
 - [ ] Add login with google example and middleware for role auth
 - [ ] Figure out error logs in production, with build and minification, hard to see which line it broke on
 - [ ] Look into what to put into `.dockerignore`
 - [ ] Middleware to print incoming requests?
-- [ ] Look into auth middleware, how to show as an example
+- [ ] Look into auth middleware, how to show as an example in boilerplate vs real app
 - [ ] Add testing framework and unit test
+- [x] Add production secrets override in config
+- [x] Figure out way to build and push image as a demo (say to ECR)
 - [x] Get vite-node HMR to work
   - [ ] Improve speed of HMR for nested files (i.e. controller.ts takes 5s without getting a request, cache issue? polling interval?)
 - [x] Move to Drizzle ORM
