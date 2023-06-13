@@ -14,12 +14,15 @@ export interface Config {
 }
 
 const PROJECT_NAME = 'ts-api-postgres-boilerplate';
-const ENVIRONMENT = process.env.ENVIRONMENT || 'development';
+// XXX(Phong): note: a lot of libs use NODE_ENV, so we need to set it
+const ENVIRONMENT =
+  process.env.ENVIRONMENT || process.env.NODE_ENV || 'development';
 const AWS_REGION = process.env.AWS_REGION || 'us-west-2';
 
 // XXX(Phong): Write this to whatever provider you want to use.
 // Also, need to create these params in infra, and then fill manually
 async function getCloudSecrets() {
+  console.log('Retrieving secrets from AWS SSM Parameter Store...');
   const client = new SSMClient({ region: AWS_REGION });
   const input: GetParametersByPathCommandInput = {
     // XXX(Phong): this name needs to be created
@@ -34,6 +37,7 @@ async function getCloudSecrets() {
     response.Parameters?.map((p) => [p.Name?.split('/').pop(), p?.Value]) || [],
   );
 
+  console.log('Successfully updated process.env with secrets');
   return secrets satisfies Config as Config;
 }
 
@@ -41,6 +45,7 @@ async function getCloudSecrets() {
 if (process.env.ENVIRONMENT === 'production') {
   const cloudSecrets = await getCloudSecrets();
   Object.entries(cloudSecrets).forEach(([key, value]) => {
+    console.log(`Injecting ${key}`);
     process.env[key] = value;
   });
 }

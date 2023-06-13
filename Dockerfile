@@ -1,3 +1,5 @@
+ARG ALPINE_VERSION=3.17
+
 FROM node:20-alpine AS base
 
 # Install dependencies only when needed
@@ -21,7 +23,7 @@ COPY . .
 RUN pnpm build
 
 # Production image, copy all the files and run compiled app
-FROM alpine AS runner
+FROM alpine:${ALPINE_VERSION} AS runner
 RUN apk add --update nodejs
 
 WORKDIR /app
